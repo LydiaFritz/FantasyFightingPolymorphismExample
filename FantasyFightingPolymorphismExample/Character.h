@@ -11,6 +11,7 @@ private:
 	int numAssets;
 public:
 	Character():numAssets(0) {}
+	~Character();
 	void equip() {
 		//add some assets
 		myAssets[numAssets++] = new Weapon();
@@ -19,11 +20,19 @@ public:
 	}
 	void attack() {
 		//attack with all the weapons you have
-		for (auto w : myAssets) {
-			w->deploy();
+		for (int i = 0; i < numAssets; i++) {
+			myAssets[i]->deploy();
 		}
 	}
 
 };
+
+Character::~Character()
+{
+	//necessary to delete the assets
+	for (int i = 0; i < numAssets; i++) {
+		delete myAssets[i];
+	}
+}
 
 #endif
